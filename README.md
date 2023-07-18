@@ -22,7 +22,7 @@ the service is developed with:
 
 ### how to: build the service run automatic tests run the service locally
 - the service could be run on docker 
-- you can run the following command 'docker-compose -f docker-compose.yml up --build -d'
+- you can run the following command 'docker-compose up -d'
 - and you can send a request on port 8081 for example to send post 
 
 
