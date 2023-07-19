@@ -1,5 +1,7 @@
 package com.prodyna.person.mapper;
 
+import java.util.UUID;
+
 import com.prodyna.person.dto.PersonRequestDto;
 import com.prodyna.person.dto.PersonResponseDto;
 import com.prodyna.person.model.Person;
@@ -18,6 +20,7 @@ class PersonMapperTest {
     @Test
     void shouldMapToPersonResponse() {
         Person person = PersonModelStub.getPerson();
+        person.setId(UUID.fromString("5087fb1f-8d57-46e0-9cdb-ad70855f0fc4"));
 
         PersonResponseDto personResponse = mapper.toPersonResponse(person);
 

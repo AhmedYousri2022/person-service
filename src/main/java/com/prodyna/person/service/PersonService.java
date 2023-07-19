@@ -66,9 +66,9 @@ public class PersonService {
         try {
             uuid = UUID.fromString(personId);
         } catch (IllegalArgumentException e) {
-            log.error("invalid id format");
+            log.error("invalid id format with id {}", personId);
             throw new BadRequestException("Person not found");
         }
-        return repository.findById(uuid).orElseThrow(() -> new NotFoundException("Person not found"));
+        return repository.findById(uuid).orElseThrow(() -> new NotFoundException("Person not found with id " + personId + " "));
     }
 }

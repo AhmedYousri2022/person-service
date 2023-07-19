@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.prodyna.person.dto.PersonResponseDto;
+import com.prodyna.person.exception.NotFoundException;
 import com.prodyna.person.repository.PersonRepository;
 import com.prodyna.person.stubs.PersonModelStub;
 import com.prodyna.person.stubs.PersonRequestDtoStub;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -55,5 +57,13 @@ class PersonServiceTest {
         List<PersonResponseDto> responseDtos = service.getAllPersons();
 
         assertThat(responseDtos, hasSize(1));
+    }
+
+    @Test
+    void shouldThrowPersonNotFound() {
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                                                   () -> service.deletePerson("5087fb1f-8d57-46e0-9cdb-ad70855f0fc4"));
+
+        assertThat(exception.getMessage(), is("Person not found"));
     }
 }

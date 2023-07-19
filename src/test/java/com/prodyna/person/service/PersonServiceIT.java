@@ -1,5 +1,6 @@
 package com.prodyna.person.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.prodyna.person.dto.PersonRequestDto;
@@ -52,17 +53,17 @@ class PersonServiceIT {
 
     @Test
     void shouldUpdateName() {
-        Person person = repository.save(PersonModelStub.getPerson());
+        List<Person> persons = addPersonsToDb(1);
         PersonRequestDto dto = PersonRequestDtoStub.getDto();
         dto.setName("newName");
-        PersonResponseDto responseDto = service.updatePerson(String.valueOf(person.getId()), dto);
+        PersonResponseDto responseDto = service.updatePerson(String.valueOf(persons.get(0).getId()), dto);
 
         assertThat(responseDto.getName(), is("newName"));
     }
 
     @Test
     void shouldGetAllPersons() {
-        addPersonsToDb();
+        addPersonsToDb(3);
 
         List<PersonResponseDto> responseDto = service.getAllPersons();
 
@@ -71,25 +72,27 @@ class PersonServiceIT {
 
     @Test
     void shouldGetPersonDetails() {
-        Person person = repository.save(PersonModelStub.getPerson());
+        List<Person> persons = addPersonsToDb(1);
 
-        PersonResponseDto personDetails = service.getPersonDetails(String.valueOf(person.getId()));
+        PersonResponseDto personDetails = service.getPersonDetails(String.valueOf(persons.get(0).getId()));
 
-        assertThat(personDetails.getName(), is(person.getName()));
+        assertThat(personDetails.getName(), is(persons.get(0).getName()));
     }
 
     @Test
     void shouldDeletePerson() {
-        Person person = repository.save(PersonModelStub.getPerson());
+        List<Person> persons = addPersonsToDb(1);
 
-        service.deletePerson(String.valueOf(person.getId()));
+        service.deletePerson(String.valueOf(persons.get(0).getId()));
 
         assertThat(repository.findAll(), hasSize(0));
     }
 
-    private void addPersonsToDb() {
-        repository.save(PersonModelStub.getPerson());
-        repository.save(PersonModelStub.getPerson());
-        repository.save(PersonModelStub.getPerson());
+    private List<Person> addPersonsToDb(int numberOfPersons) {
+        List<Person> persons = new ArrayList<>();
+        for (int i = 0; i < numberOfPersons; i++) {
+            persons.add(repository.save(PersonModelStub.getPerson()));
+        }
+        return persons;
     }
 }

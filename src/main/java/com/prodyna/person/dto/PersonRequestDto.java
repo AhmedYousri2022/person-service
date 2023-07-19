@@ -15,6 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class PersonRequestDto {
 
     @NotNull
-    @Size(min = 3, max = 20, message = "should be between 3 to 20 letter")
+    @Size(min = 3, max = 20, message = "length should be between [3,20] characters")
     private String name;
 }
