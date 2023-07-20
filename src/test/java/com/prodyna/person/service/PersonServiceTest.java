@@ -64,6 +64,6 @@ class PersonServiceTest {
         NotFoundException exception = assertThrows(NotFoundException.class,
                                                    () -> service.deletePerson("5087fb1f-8d57-46e0-9cdb-ad70855f0fc4"));
 
-        assertThat(exception.getMessage(), is("Person not found"));
+        assertThat(exception.getMessage(), is("Person not found with id 5087fb1f-8d57-46e0-9cdb-ad70855f0fc4 "));
     }
 }

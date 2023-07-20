@@ -48,7 +48,7 @@ class PersonServiceIT {
                 () -> service.updatePerson("5087fb1f-8d57-46e0-9cdb-ad70855f0fc4", PersonRequestDtoStub.getDto()),
                 "Person not found");
 
-        assertThat(exception.getMessage(), is("Person not found"));
+        assertThat(exception.getMessage(), is("Person not found with id 5087fb1f-8d57-46e0-9cdb-ad70855f0fc4 "));
     }
 
     @Test
